@@ -779,3 +779,7 @@ form#sort_users div {
 .profile .avatar {
   float: left;
 }
+
+.badges ul {
+	list-style: none;
+}

@@ -1,0 +1,6 @@
+<li class="clearfix <%= cycle('even', 'odd', :name => 'row') %>">
+  <div class="info">
+    <b><%= link_to(h(badge.name), badge) %>:</b>
+    <%=h badge.description %>
+  </div>
+</li>

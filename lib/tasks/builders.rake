@@ -29,6 +29,17 @@ namespace :builders do
                        :description   => Forgery(:lorem_ipsum).paragraph)
       end
     end
+    
+    desc 'Seed 5 badges'
+    task :badges => :environment do
+      Badge.delete_all
+      
+      5.times do
+        Badge.create(:name        => Forgery(:name).company_name,
+                     :description => Forgery(:lorem_ipsum).sentence)  
+      end
+    end
+                 
 
     desc 'add volunteers to projects'
     task :project_volunteers => :environment do
