@@ -1,5 +1,5 @@
 class BadgesController < ApplicationController
-  before_filter :require_admin :only  => [:new, :edit, :create, :update, :destroy]
+  before_filter :require_admin, :except  => [:index, :show]
   
   def index
     @badges = Badge.all
@@ -66,7 +66,10 @@ class BadgesController < ApplicationController
     @badge.destroy
 
     respond_to do |format|
-      format.html { redirect_to(badges_url) }
+      format.html do
+        flash[:notice] = 'Badge was deleted.'
+        redirect_to(badges_url)
+      end
     end
   end
   
