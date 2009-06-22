@@ -1,5 +1,6 @@
 class BadgesController < ApplicationController
-
+  before_filter :require_admin :only  => [:new, :edit, :create, :update, :destroy]
+  
   def index
     @badges = Badge.all
 

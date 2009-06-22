@@ -40,26 +40,22 @@ class BadgesControllerTest < ActionController::TestCase
      should_assign_to :badge
    end
 
-   context 'GET to edit' do
-     setup { @badge = Factory(:badge) }
+  context 'GET to edit' do
+    setup do
+      @badge = Factory(:badge) }
+      get :edit, :id => @badge.to_param }
+    end
+      
+    should_respond_with :success
+  end
 
-     context 'without access key' do
-       setup { get :edit, :id => @badge.to_param }
-
+    context 'PUT to update' do
+      setup do
+        @badge = Factory(:badge) 
+        setup { put :update, :id => @badge.to_param, :project => Factory.attributes_for(:badge) }
+      end
+      
        should_respond_with :success
-     end
-
-   end
-
-   context 'PUT to update' do
-     setup { @badge = Factory(:badge) }
-
-     context 'without access key' do
-       setup { put :update, :id => @badge.to_param, :project => Factory.attributes_for(:badge) }
-
-       should_respond_with :success
-     end
-
        should_set_the_flash_to /updated/i
        should_assign_to(:badge) { @badge }
        should_redirect_to('badge show') {badge_path(@badge)}               
@@ -67,13 +63,12 @@ class BadgesControllerTest < ActionController::TestCase
    end
 
    context 'given a badge exists' do
-     setup { @badge = Factory(:badge) }
-
-       context 'without access key' do
-         setup { delete :destroy, :id => @badge.to_param}
-         should_process_project_deletions
-       end
-
+     setup do
+      @badge = Factory(:badge) 
+      delete :destroy, :id => @badge.to_param}
+      end
+      
+      should_process_badge_deletions
    end
 
    def self.should_process_badge_deletions
